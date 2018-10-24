@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="KmRelativeLayout">
+        <attr name="addLoadingView" format="reference|integer" />
+    </declare-styleable>
+
+    <declare-styleable name="KmImageView">
+        <attr name="setLoadingView" format="reference|integer" />
+    </declare-styleable>
+</resources>

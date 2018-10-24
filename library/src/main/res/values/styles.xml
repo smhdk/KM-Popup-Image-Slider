@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="KmPopupDialog" parent="android:Theme.Black.NoTitleBar">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <!-- No backgrounds, titles or window float -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="8dp"
+            android:padding="8dp" />
+    </RelativeLayout>
+
+    <com.kodmap.app.library.ui.KmViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rv_thumb"
+        android:layout_below="@+id/headerLayout" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_thumb"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:foregroundGravity="center"
+        android:visibility="gone" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:tabGravity="center"
+        app:tabIndicatorGravity="center"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabRippleColor="@android:color/transparent" />
+</RelativeLayout>
