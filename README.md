@@ -7,7 +7,7 @@ You can easyly show image list in dialog with this library.Image list contains u
 ![Alt Text](https://media.giphy.com/media/1gdieueHJ6ru6jPBCR/giphy.gif)
 
 # Usage
--------------
+
 Create a type string,Integer or BaseItem list. This library contains BaseItem class for extended your items.
 String list item to be image url and Integer list item to be drawable id.
 Option 1 - String list: 
@@ -75,14 +75,14 @@ Use this code for show Km Slider Popup Dialog
 ```java
         dialog.show()
 ```
-You can add internet permission to **AndroidManifest.xml** file for loading image from url.
+You must add internet permission to **AndroidManifest.xml** file for loading image from url.
 ```xml
     	<uses-permission android:name="android.permission.INTERNET" />
 ```
 
 
 # Download
--------------
+
 ##### Step 1. Add the JitPack repository to your build file
 Add it in your root build.gradle at the end of repositories:
 
@@ -101,25 +101,25 @@ dependencies {
 ```
   
 # Licence
--------------
-MIT License
 
-Copyright (c) 2017 Semih Dik
+	MIT License
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+	Copyright (c) 2018 Semih Dik
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE.
