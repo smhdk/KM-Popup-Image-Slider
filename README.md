@@ -1,13 +1,11 @@
 KM Popup Image Slider for Android RecyclerView
 =============
-![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)
-(https://jitpack.io/#User/Repo)
+[![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)](https://jitpack.io/#smhdk/KM-Popup-Image-Slider "![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)")
 
-[![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)]
-(#smhdk/KM-Popup-Image-Slider)
 You can easyly show image list in dialog with this library.Image list contains url or drawable.  
 
 ![Alt Text](https://media.giphy.com/media/1gdieueHJ6ru6jPBCR/giphy.gif)
+
 # Usage
 -------------
 Create a type string,Integer or BaseItem list. This library contains BaseItem class for extended your items.
@@ -77,6 +75,11 @@ Use this code for show Km Slider Popup Dialog
 ```java
         dialog.show()
 ```
+You can add internet permission to **AndroidManifest.xml** file for loading image from url.
+```xml
+    	<uses-permission android:name="android.permission.INTERNET" />
+```
+
 
 # Download
 -------------
