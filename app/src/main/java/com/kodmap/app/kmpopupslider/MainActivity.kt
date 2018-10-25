@@ -1,7 +1,6 @@
 package com.kodmap.app.kmpopupslider
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
@@ -36,22 +35,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val dialog = PopopDialogBuilder(this@MainActivity)
+                .setList(urlList)
+                .setHeaderBackgroundColor(android.R.color.holo_blue_light)
+                .setDialogBackgroundColor(R.color.color_dialog_bg)
+                .setCloseDrawable(R.drawable.ic_close_white_24dp)
+                .setLoadingView(R.layout.loading_view)
+                .setDialogStyle(R.style.DialogStyle)
+                .showThumbSlider(true)
+                .setSliderImageScaleType(ScaleType.FIT_XY)
+                .setSelectorIndicator(R.drawable.sample_indicator_selector)
+                .build()
+
 
         val button = findViewById<Button>(R.id.showDialog)
         button.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                PopopDialogBuilder(this@MainActivity)
-                        .setList(urlList)
-                        .setHeaderBackgroundColor(android.R.color.holo_blue_light)
-                        .setDialogBackgroundColor(R.color.color_dialog_bg)
-                        .setCloseDrawable(ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_close_white_24dp)!!)
-                        .setLoadingView(R.layout.loading_view)
-                        .setDialogStyle(R.style.DialogStyle)
-                        .showThumbSlider(true)
-                        .setSliderImageScaleType(ScaleType.FIT_XY)
-                        .setSelectorIndicator(R.drawable.sample_indicator_selector)
-                        .build()
-                        .show();
+
+                dialog.show()
             }
         })
 

@@ -5,7 +5,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
@@ -36,7 +35,7 @@ class PopopDialogBuilder(private val mContext: Context) {
     private var mDialogBgColor: Int = R.color.color_dialog_bg
     private var mHeaderBgColor: Int = R.color.color_dialog_bg
     private var mSliderImageScaleType = ScaleType.FIT_CENTER
-    private var mCloseDrawable: Drawable? = ContextCompat.getDrawable(mContext, R.drawable.ic_close_white_24dp)
+    private var mCloseDrawable: Int = R.drawable.ic_close_white_24dp
     private var mLoadingView: View? = null
     private var mDialogStyle: Int = R.style.KmPopupDialog
     private var mSelectorIndicator: Int = R.drawable.indicator_selector
@@ -72,8 +71,8 @@ class PopopDialogBuilder(private val mContext: Context) {
         return this
     }
 
-    fun setCloseDrawable(drawable: Drawable): PopopDialogBuilder {
-        mCloseDrawable = drawable
+    fun setCloseDrawable(closeIcon: Int): PopopDialogBuilder {
+        mCloseDrawable = closeIcon
         return this
     }
 
@@ -146,7 +145,7 @@ class PopopDialogBuilder(private val mContext: Context) {
         headerLayout.setBackgroundColor(ContextCompat.getColor(mContext, mHeaderBgColor))
 
         val btn_close = mDialogView.findViewById<ImageView>(R.id.iv_close)
-        btn_close.setImageDrawable(mCloseDrawable)
+        btn_close.setImageDrawable(ContextCompat.getDrawable(mContext, mCloseDrawable))
         btn_close.setOnClickListener {
             mDialog.dismiss()
         }
