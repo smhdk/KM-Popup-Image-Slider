@@ -2,7 +2,6 @@ package com.kodmap.app.kmpopupslider
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.widget.Button
 import com.kodmap.app.library.PopopDialogBuilder
 import com.kodmap.app.library.constant.ScaleType
@@ -35,27 +34,34 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val dialog = PopopDialogBuilder(this@MainActivity)
+        val dialog1 = PopopDialogBuilder(this@MainActivity)
+                .setList(baseItemList)
+                .setHeaderBackgroundColor(android.R.color.holo_blue_dark)
+                .setDialogBackgroundColor(R.color.color_dialog_bg)
+                .setCloseDrawable(R.drawable.ic_close_white_24dp)
+                .setLoadingView(R.layout.loading_view)
+                .setDialogStyle(R.style.DialogStyle)
+                .showThumbSlider(false)
+                .setSliderImageScaleType(ScaleType.FIT_XY)
+                .setSelectorIndicator(R.drawable.sample_indicator_selector)
+                .build()
+
+        val dialog2 = PopopDialogBuilder(this@MainActivity)
                 .setList(urlList)
-                .setHeaderBackgroundColor(android.R.color.holo_blue_light)
+                .setHeaderBackgroundColor(android.R.color.holo_blue_bright)
                 .setDialogBackgroundColor(R.color.color_dialog_bg)
                 .setCloseDrawable(R.drawable.ic_close_white_24dp)
                 .setLoadingView(R.layout.loading_view)
                 .setDialogStyle(R.style.DialogStyle)
                 .showThumbSlider(true)
                 .setSliderImageScaleType(ScaleType.FIT_XY)
-                .setSelectorIndicator(R.drawable.sample_indicator_selector)
                 .build()
 
+        val button1 = findViewById<Button>(R.id.dialog1)
+        button1.setOnClickListener { dialog1.show() }
 
-        val button = findViewById<Button>(R.id.showDialog)
-        button.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-
-                dialog.show()
-            }
-        })
-
+        val button2 = findViewById<Button>(R.id.dialog2)
+        button2.setOnClickListener { dialog2.show() }
 
     }
 }

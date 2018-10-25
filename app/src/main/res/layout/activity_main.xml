@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/showDialog"
+        android:id="@+id/dialog1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/dialog2"
+        android:layout_centerInParent="true"
+        android:layout_margin="16dp"
+        android:background="@android:color/holo_blue_dark"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:text="SHOW DIALOG WITH INDICATOR SELECTOR"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/dialog2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="16dp"
         android:padding="16dp"
-        android:text="SHOW DIALOG" />
+        android:background="@android:color/holo_blue_bright"
+        android:elevation="4dp"
+        android:text="SHOW DIALOG WITH THUMBNAIL SELECTOR"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>
