@@ -1,4 +1,4 @@
-KM Popup Image Slider for Android RecyclerView
+KM Popup Image Slider for Android
 =============
 [![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)](https://jitpack.io/#smhdk/KM-Popup-Image-Slider "![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)")
 
