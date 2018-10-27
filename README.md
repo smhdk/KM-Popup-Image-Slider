@@ -42,9 +42,9 @@ Option 3 - BaseItem list:
       BaseItem item3 = new BaseItem();
       item3.setDrawableId(R.drawable.sample2);
 
-      item_list.add(R.drawable.item1);
-      item_list.add(R.drawable.item2);
-      item_list.add(R.drawable.item3);
+      item_list.add(item1);
+      item_list.add(item2);
+      item_list.add(item3);
 ```
 You can create PopupDialogBuilder after creating any list. You can customize the view with parameters
 
