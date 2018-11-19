@@ -4,7 +4,7 @@ KM Popup Image Slider for Android
 
 You can easyly show image list in dialog with this library.Image list contains url or drawable.  
 
-![Alt Text](https://media.giphy.com/media/1gdieueHJ6ru6jPBCR/giphy.gif)
+![Alt Text](https://media.giphy.com/media/4QEGw3pIuzNDD5HP08/giphy.gif)
 
 # Usage
 
