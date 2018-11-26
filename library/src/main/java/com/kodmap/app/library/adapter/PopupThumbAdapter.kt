@@ -36,7 +36,7 @@ class PopupThumbAdapter(private val listener: AdapterClickListener) : ListAdapte
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_thumb, parent, false) as KmRelativeLayout
+                .inflate(R.layout.item_thumb, parent, false) as View
         return ViewHolder(itemView, listener)
     }
 
