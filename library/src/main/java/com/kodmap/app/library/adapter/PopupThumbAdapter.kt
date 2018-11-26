@@ -3,23 +3,19 @@ package com.kodmap.app.library.adapter
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.kodmap.app.library.R
 import com.kodmap.app.library.listener.AdapterClickListener
 import com.kodmap.app.library.model.BaseItem
 import com.kodmap.app.library.ui.KmImageView
 import com.kodmap.app.library.ui.KmRelativeLayout
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
-import java.lang.Exception
 import java.util.*
 
 class PopupThumbAdapter(private val listener: AdapterClickListener) : ListAdapter<BaseItem, PopupThumbAdapter.ViewHolder>(itemCallback) {
@@ -36,7 +32,7 @@ class PopupThumbAdapter(private val listener: AdapterClickListener) : ListAdapte
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_thumb, parent, false) as View
+                .inflate(R.layout.item_thumb, parent, false)
         return ViewHolder(itemView, listener)
     }
 
