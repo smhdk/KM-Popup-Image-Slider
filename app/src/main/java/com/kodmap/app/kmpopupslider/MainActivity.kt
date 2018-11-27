@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
                 .setLoadingView(R.layout.loading_view)
                 .setDialogStyle(R.style.DialogStyle)
                 .showThumbSlider(false)
+                .setIsZoomable(true)
                 .setSliderImageScaleType(ScaleType.FIT_XY)
                 .setSelectorIndicator(R.drawable.sample_indicator_selector)
                 .build()

@@ -8,7 +8,7 @@ import com.kodmap.app.library.R
 import com.kodmap.app.library.constant.ScaleType
 import com.kodmap.app.library.model.BaseItem
 import com.kodmap.app.library.ui.KmRelativeLayout
-import com.kodmap.app.library.ui.KmImageView
+import com.kodmap.app.library.ui.zoomableImaveView.KmZoomableImageView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.util.*
@@ -17,6 +17,7 @@ import java.util.*
 class PopupSliderAdapter : PagerAdapter() {
 
     private var mImageScaleType: ImageView.ScaleType = ScaleType.FIT_CENTER
+    private var mIsZoomable: Boolean = false
     lateinit var mLoadingView: View
     private val itemList = ArrayList<BaseItem>()
 
@@ -36,7 +37,7 @@ class PopupSliderAdapter : PagerAdapter() {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val itemView = View.inflate(container.context, R.layout.item_slider, null) as KmRelativeLayout
-        val imageView = itemView.findViewById<KmImageView>(R.id.iv_item)
+        val imageView = itemView.findViewById<KmZoomableImageView>(R.id.km_iv_item_slider)
 
         if (::mLoadingView.isInitialized) {
             itemView.addLoadingLayout(mLoadingView)
@@ -45,8 +46,8 @@ class PopupSliderAdapter : PagerAdapter() {
         }
 
         imageView.scaleType = mImageScaleType
+        imageView.isZoomable = mIsZoomable
 
-        Picasso.get().cancelRequest(imageView)
         if (itemList[position].imageUrl == null) {
             Picasso.get()
                     .load(itemList[position].drawableId!!)
@@ -88,6 +89,10 @@ class PopupSliderAdapter : PagerAdapter() {
         if (mLoadingView != null) {
             this.mLoadingView = mLoadingView
         }
+    }
+
+    fun setIsZoomable(bool: Boolean) {
+        mIsZoomable = bool
     }
 
 

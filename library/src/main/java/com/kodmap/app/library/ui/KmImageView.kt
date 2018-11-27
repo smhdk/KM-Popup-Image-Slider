@@ -13,18 +13,18 @@ class KmImageView : ImageView {
     private var isLoadingFinished = false
 
     constructor(context: Context) : super(context) {
-        init(context, null)
+        init(null)
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(context, attrs)
+        init(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
-        init(context, attrs)
+        init(attrs)
     }
 
-    private fun init(context: Context, attrs: AttributeSet?) {
+    private fun init(attrs: AttributeSet?) {
         val ta: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.KmImageView, 0, 0)
 
         val loadingViewResourceId = ta.getResourceId(R.styleable.KmImageView_setLoadingView, -1)

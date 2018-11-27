@@ -62,8 +62,8 @@ class PopupThumbAdapter(private val listener: AdapterClickListener) : ListAdapte
         var target: Target
 
         init {
-            iv_thumb = itemView.findViewById(R.id.iv_thumb)
-            gradient_view = itemView.findViewById(R.id.gradient_view)
+            iv_thumb = itemView.findViewById(R.id.km_iv_thumb)
+            gradient_view = itemView.findViewById(R.id.km_gradient_view)
 
             target = object : Target {
                 override fun onPrepareLoad(placeHolderDrawable: Drawable?) {

@@ -7,13 +7,13 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/headerLayout"
+        android:id="@+id/km_header_layout"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_alignParentTop="true">
 
         <ImageView
-            android:id="@+id/iv_close"
+            android:id="@+id/km_iv_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -24,14 +24,14 @@
     </RelativeLayout>
 
     <com.kodmap.app.library.ui.KmViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/km_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/rv_thumb"
-        android:layout_below="@+id/headerLayout" />
+        android:layout_above="@+id/km_rv_thumb"
+        android:layout_below="@+id/km_header_layout" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_thumb"
+        android:id="@+id/km_rv_thumb"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -40,7 +40,7 @@
         android:visibility="gone" />
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/tabLayout"
+        android:id="@+id/km_tab_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

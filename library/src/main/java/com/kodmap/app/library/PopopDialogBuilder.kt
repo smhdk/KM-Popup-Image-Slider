@@ -1,6 +1,5 @@
 package com.kodmap.app.library
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
@@ -39,6 +38,7 @@ class PopopDialogBuilder(private val mContext: Context) {
     private var mLoadingView: View? = null
     private var mDialogStyle: Int = R.style.KmPopupDialog
     private var mSelectorIndicator: Int = R.drawable.indicator_selector
+    private var mIsZoomable: Boolean = false
 
     private lateinit var mAdapterClickListener: AdapterClickListener
     private lateinit var mDialog: Dialog
@@ -47,6 +47,11 @@ class PopopDialogBuilder(private val mContext: Context) {
     private lateinit var mRvThumb: RecyclerView
     private lateinit var mImagePager: KmViewPager
     private lateinit var mThumbAdapter: PopupThumbAdapter
+
+    fun setIsZoomable(bool: Boolean): PopopDialogBuilder {
+        mIsZoomable = bool
+        return this
+    }
 
     fun setSelectorIndicator(draw: Int): PopopDialogBuilder {
         mSelectorIndicator = draw
@@ -127,7 +132,7 @@ class PopopDialogBuilder(private val mContext: Context) {
     }
 
     private fun initTabLayout() {
-        val tabLayout = mDialogView.findViewById<TabLayout>(R.id.tabLayout)
+        val tabLayout = mDialogView.findViewById<TabLayout>(R.id.km_tab_layout)
         tabLayout.visibility = View.VISIBLE
         tabLayout.setupWithViewPager(mImagePager)
 
@@ -141,10 +146,10 @@ class PopopDialogBuilder(private val mContext: Context) {
     }
 
     private fun initHeader() {
-        val headerLayout = mDialogView.findViewById<RelativeLayout>(R.id.headerLayout)
+        val headerLayout = mDialogView.findViewById<RelativeLayout>(R.id.km_header_layout)
         headerLayout.setBackgroundColor(ContextCompat.getColor(mContext, mHeaderBgColor))
 
-        val btn_close = mDialogView.findViewById<ImageView>(R.id.iv_close)
+        val btn_close = mDialogView.findViewById<ImageView>(R.id.km_iv_close)
         btn_close.setImageDrawable(ContextCompat.getDrawable(mContext, mCloseDrawable))
         btn_close.setOnClickListener {
             mDialog.dismiss()
@@ -152,10 +157,11 @@ class PopopDialogBuilder(private val mContext: Context) {
     }
 
     private fun initImageViewPager() {
-        mImagePager = mDialogView.findViewById(R.id.viewPager)
+        mImagePager = mDialogView.findViewById(R.id.km_view_pager)
         mSliderAdapter = PopupSliderAdapter()
         mSliderAdapter.setLoadingView(mLoadingView)
         mSliderAdapter.setScaleType(mSliderImageScaleType)
+        mSliderAdapter.setIsZoomable(mIsZoomable)
         mImagePager.adapter = mSliderAdapter
         (mImagePager.adapter as PopupSliderAdapter).setItemList(mImageList)
         mImagePager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -173,7 +179,7 @@ class PopopDialogBuilder(private val mContext: Context) {
 
     private fun initThumbReclerView() {
         mThumbAdapter = PopupThumbAdapter(mAdapterClickListener)
-        mRvThumb = mDialogView.findViewById(R.id.rv_thumb)
+        mRvThumb = mDialogView.findViewById(R.id.km_rv_thumb)
         mRvThumb.visibility = View.VISIBLE
         mImageList[0].isSelected = true
         mThumbAdapter.setList(mImageList)
@@ -216,7 +222,6 @@ class PopopDialogBuilder(private val mContext: Context) {
         }
     }
 
-    @SuppressLint("ResourceType")
     private fun createDialog() {
         mDialog = Dialog(mContext, mDialogStyle)
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)

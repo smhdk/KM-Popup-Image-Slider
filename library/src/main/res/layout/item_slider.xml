@@ -3,10 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kodmap.app.library.ui.KmImageView
-        android:id="@+id/iv_item"
+    <com.kodmap.app.library.ui.zoomableImaveView.KmZoomableImageView
+        android:id="@+id/km_iv_item_slider"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:adjustViewBounds="true"
         android:layout_centerInParent="true" />
 </com.kodmap.app.library.ui.KmRelativeLayout>

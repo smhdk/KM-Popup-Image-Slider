@@ -4,14 +4,14 @@
     android:layout_height="50dp">
 
     <com.kodmap.app.library.ui.KmImageView
-        android:id="@+id/iv_thumb"
+        android:id="@+id/km_iv_thumb"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY" />
 
     <View
-        android:id="@+id/gradient_view"
+        android:id="@+id/km_gradient_view"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/bg_selected_thumb" />
