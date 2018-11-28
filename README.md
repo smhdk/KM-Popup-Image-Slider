@@ -68,6 +68,8 @@ You can create PopupDialogBuilder after creating any list. You can customize the
                         .setSliderImageScaleType(ScaleType.FIT_XY)
                         // Set indicator drawable
                         .setSelectorIndicator(R.drawable.sample_indicator_selector)
+			// Enable or disable zoomable
+			.setIsZoomable(true)
                         // Build Km Slider Popup Dialog
                         .build()
 ```
