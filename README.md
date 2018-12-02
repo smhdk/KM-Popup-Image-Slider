@@ -68,6 +68,8 @@ You can create PopupDialogBuilder after creating any list. You can customize the
                         .setSliderImageScaleType(ScaleType.FIT_XY)
                         // Set indicator drawable
                         .setSelectorIndicator(R.drawable.sample_indicator_selector)
+			// Enable or disable zoomable
+			.setIsZoomable(true)
                         // Build Km Slider Popup Dialog
                         .build()
 ```
@@ -96,7 +98,7 @@ Add it in your root build.gradle at the end of repositories:
 Add it in app build.gradle
 ```
 dependencies {
-	    compile 'com.github.smhdk:KM-Popup-Image-Slider:v1.0.1'
+	    compile 'com.github.smhdk:KM-Popup-Image-Slider:v1.1.0'
 	}
 ```
   
