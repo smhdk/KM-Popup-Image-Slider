@@ -9,9 +9,16 @@ import com.kodmap.app.library.constant.ScaleType
 import com.kodmap.app.library.model.BaseItem
 import com.kodmap.app.library.ui.KmRelativeLayout
 import com.kodmap.app.library.ui.zoomableImaveView.KmZoomableImageView
+import com.kodmap.app.library.ui.zoomableImaveView.Util.enableTls12OnPreLollipop
 import com.squareup.picasso.Callback
+import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
+import okhttp3.Cache
+import okhttp3.Interceptor
 import java.util.*
+import okhttp3.OkHttpClient
+import okhttp3.Response
+import java.io.IOException
 
 
 class PopupSliderAdapter : PagerAdapter() {
@@ -47,9 +54,11 @@ class PopupSliderAdapter : PagerAdapter() {
 
         imageView.scaleType = mImageScaleType
         imageView.isZoomable = mIsZoomable
-
+        var okHttpClient = OkHttpClient.Builder()
+        val okHttpDownloader = OkHttp3Downloader(enableTls12OnPreLollipop(okHttpClient).build())
+        val picasso = Picasso.Builder(container.context).downloader(okHttpDownloader).build()
         if (itemList[position].imageUrl == null) {
-            Picasso.get()
+            picasso
                     .load(itemList[position].drawableId!!)
                     .into(imageView, object : Callback {
                         override fun onSuccess() {
@@ -61,8 +70,7 @@ class PopupSliderAdapter : PagerAdapter() {
                         }
                     })
         } else {
-            Picasso.get()
-                    .load(itemList[position].imageUrl)
+            picasso.load(itemList[position].imageUrl)
                     .into(imageView, object : Callback {
                         override fun onSuccess() {
                             imageView.disableLoading()
