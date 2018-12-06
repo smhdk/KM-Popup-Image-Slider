@@ -23,11 +23,16 @@ import com.kodmap.app.library.constant.ListType
 import com.kodmap.app.library.constant.ScaleType
 import com.kodmap.app.library.constant.ScrollType
 import com.kodmap.app.library.listener.AdapterClickListener
+import com.kodmap.app.library.loader.cache.disc.naming.Md5FileNameGenerator
+import com.kodmap.app.library.loader.core.ImageLoader
+import com.kodmap.app.library.loader.core.ImageLoaderConfiguration
+import com.kodmap.app.library.loader.core.assist.QueueProcessingType
 import com.kodmap.app.library.model.BaseItem
 import com.kodmap.app.library.ui.KmViewPager
+import java.lang.ref.WeakReference
 
 
-class PopopDialogBuilder(private val mContext: Context) {
+class PopopDialogBuilder(mContext: Context) {
 
     private var isThumbPager = true
     private var mImageList = mutableListOf<BaseItem>()
@@ -47,6 +52,7 @@ class PopopDialogBuilder(private val mContext: Context) {
     private lateinit var mRvThumb: RecyclerView
     private lateinit var mImagePager: KmViewPager
     private lateinit var mThumbAdapter: PopupThumbAdapter
+    private var weakContext: WeakReference<Context> = WeakReference(mContext)
 
     fun setIsZoomable(bool: Boolean): PopopDialogBuilder {
         mIsZoomable = bool
@@ -64,7 +70,7 @@ class PopopDialogBuilder(private val mContext: Context) {
     }
 
     fun setLoadingView(viewId: Int): PopopDialogBuilder {
-        mLoadingView = View.inflate(mContext, viewId, null)
+        weakContext.get()?.let { mLoadingView = View.inflate(it, viewId, null) }
         if (mLoadingView == null)
             throw IllegalArgumentException("View could not be inflate")
         else
@@ -132,27 +138,31 @@ class PopopDialogBuilder(private val mContext: Context) {
     }
 
     private fun initTabLayout() {
-        val tabLayout = mDialogView.findViewById<TabLayout>(R.id.km_tab_layout)
-        tabLayout.visibility = View.VISIBLE
-        tabLayout.setupWithViewPager(mImagePager)
+        weakContext.get()?.let {
+            val tabLayout = mDialogView.findViewById<TabLayout>(R.id.km_tab_layout)
+            tabLayout.visibility = View.VISIBLE
+            tabLayout.setupWithViewPager(mImagePager)
 
-        if (mSelectorIndicator != R.drawable.indicator_selector) {
-            val tabLayoutView = tabLayout.getChildAt(0) as ViewGroup
-            for (i in 0 until tabLayout.tabCount) {
-                val tab = tabLayoutView.getChildAt(i) as View
-                tab.background = ContextCompat.getDrawable(mContext, mSelectorIndicator)
+            if (mSelectorIndicator != R.drawable.indicator_selector) {
+                val tabLayoutView = tabLayout.getChildAt(0) as ViewGroup
+                for (i in 0 until tabLayout.tabCount) {
+                    val tab = tabLayoutView.getChildAt(i) as View
+                    tab.background = ContextCompat.getDrawable(it, mSelectorIndicator)
+                }
             }
         }
     }
 
     private fun initHeader() {
-        val headerLayout = mDialogView.findViewById<RelativeLayout>(R.id.km_header_layout)
-        headerLayout.setBackgroundColor(ContextCompat.getColor(mContext, mHeaderBgColor))
+        weakContext.get()?.let {
+            val headerLayout = mDialogView.findViewById<RelativeLayout>(R.id.km_header_layout)
+            headerLayout.setBackgroundColor(ContextCompat.getColor(it, mHeaderBgColor))
 
-        val btn_close = mDialogView.findViewById<ImageView>(R.id.km_iv_close)
-        btn_close.setImageDrawable(ContextCompat.getDrawable(mContext, mCloseDrawable))
-        btn_close.setOnClickListener {
-            mDialog.dismiss()
+            val btn_close = mDialogView.findViewById<ImageView>(R.id.km_iv_close)
+            btn_close.setImageDrawable(ContextCompat.getDrawable(it, mCloseDrawable))
+            btn_close.setOnClickListener { listener ->
+                mDialog.dismiss()
+            }
         }
     }
 
@@ -178,40 +188,44 @@ class PopopDialogBuilder(private val mContext: Context) {
     }
 
     private fun initThumbReclerView() {
-        mThumbAdapter = PopupThumbAdapter(mAdapterClickListener)
-        mRvThumb = mDialogView.findViewById(R.id.km_rv_thumb)
-        mRvThumb.visibility = View.VISIBLE
-        mImageList[0].isSelected = true
-        mThumbAdapter.setList(mImageList)
-        mThumbAdapter.setLoadingView(mLoadingView)
-        val layoutManager = LinearLayoutManager(mContext)
-        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        mRvThumb.layoutManager = layoutManager
-        mRvThumb.adapter = mThumbAdapter
-        mRvThumb.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    val center = mRvThumb.width / 2
-                    val centerView = mRvThumb.findChildViewUnder(center.toFloat(), mRvThumb.left.toFloat())
-                    if (centerView != null) {
-                        val centerPos = mRvThumb.getChildAdapterPosition(centerView)
-                        val firstVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                        val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                        if ((firstVisibleItemPosition != 0 || centerPos < (recyclerView.adapter as PopupThumbAdapter).oldSelectedPosition) && (lastVisibleItemPosition != mImageList.size - 1 || centerPos > (recyclerView.adapter as PopupThumbAdapter).oldSelectedPosition)) {
-                            setScrollSync(centerPos, ScrollType.RecyclerViewScroll)
+        weakContext.get()?.let {
+            mThumbAdapter = PopupThumbAdapter(mAdapterClickListener)
+            mRvThumb = mDialogView.findViewById(R.id.km_rv_thumb)
+            mRvThumb.visibility = View.VISIBLE
+            mImageList[0].isSelected = true
+            mThumbAdapter.setList(mImageList)
+            mThumbAdapter.setLoadingView(mLoadingView)
+            val layoutManager = LinearLayoutManager(it)
+            layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+            mRvThumb.layoutManager = layoutManager
+            mRvThumb.adapter = mThumbAdapter
+            mRvThumb.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        val center = mRvThumb.width / 2
+                        val centerView = mRvThumb.findChildViewUnder(center.toFloat(), mRvThumb.left.toFloat())
+                        if (centerView != null) {
+                            val centerPos = mRvThumb.getChildAdapterPosition(centerView)
+                            val firstVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                            val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                            if ((firstVisibleItemPosition != 0 || centerPos < (recyclerView.adapter as PopupThumbAdapter).oldSelectedPosition) && (lastVisibleItemPosition != mImageList.size - 1 || centerPos > (recyclerView.adapter as PopupThumbAdapter).oldSelectedPosition)) {
+                                setScrollSync(centerPos, ScrollType.RecyclerViewScroll)
+                            }
                         }
+                        mImagePager.setSwipeLocked(false)
+                    } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                        mImagePager.setSwipeLocked(true)
                     }
-                    mImagePager.setSwipeLocked(false)
-                } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    mImagePager.setSwipeLocked(true)
                 }
-            }
-        })
+            })
+        }
     }
 
     private fun initDialogView() {
-        mDialogView = View.inflate(mContext, R.layout.dialog_popup, null)
+        weakContext.get()?.let {
+            mDialogView = View.inflate(it, R.layout.km_dialog_popup, null)
+        }
     }
 
     private fun initListener() {
@@ -223,21 +237,38 @@ class PopopDialogBuilder(private val mContext: Context) {
     }
 
     private fun createDialog() {
-        mDialog = Dialog(mContext, mDialogStyle)
-        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        weakContext.get()?.let {
+            mDialog = Dialog(it, mDialogStyle)
+            mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
-        val lp = WindowManager.LayoutParams()
-        val manager = mContext.getSystemService(Activity.WINDOW_SERVICE) as WindowManager
-        val displaymetrics = DisplayMetrics()
-        manager.defaultDisplay.getMetrics(displaymetrics);
-        lp.width = displaymetrics.widthPixels
-        lp.height = displaymetrics.heightPixels
+            initLoader()
 
-        mDialog.window!!.attributes = lp
-        mDialog.window!!.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(mContext, mDialogBgColor)))
+            val lp = WindowManager.LayoutParams()
+            val manager = it.getSystemService(Activity.WINDOW_SERVICE) as WindowManager
+            val displaymetrics = DisplayMetrics()
+            manager.defaultDisplay.getMetrics(displaymetrics);
+            lp.width = displaymetrics.widthPixels
+            lp.height = displaymetrics.heightPixels
 
-        mDialog.setContentView(mDialogView)
-        mDialog.setCancelable(true)
+            mDialog.window!!.attributes = lp
+            mDialog.window!!.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(it, mDialogBgColor)))
+
+            mDialog.setContentView(mDialogView)
+            mDialog.setCancelable(true)
+        }
+    }
+
+    private fun initLoader() {
+        weakContext.get()?.let {
+            val config = ImageLoaderConfiguration.Builder(it.applicationContext)
+            config.threadPriority(Thread.NORM_PRIORITY - 2)
+            config.denyCacheImageMultipleSizesInMemory()
+            config.diskCacheFileNameGenerator(Md5FileNameGenerator())
+            config.diskCacheSize(20 * 1024 * 1024)
+            config.tasksProcessingOrder(QueueProcessingType.LIFO)
+            // Initialize ImageLoader with configuration.
+            ImageLoader.getInstance().init(config.build())
+        }
     }
 
     private fun setScrollSync(position: Int, type: Int) {

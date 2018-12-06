@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                 .setDialogStyle(R.style.DialogStyle)
                 .showThumbSlider(false)
                 .setIsZoomable(true)
-                .setSliderImageScaleType(ScaleType.FIT_XY)
+                .setSliderImageScaleType(ScaleType.CENTER_INSIDE)
                 .setSelectorIndicator(R.drawable.sample_indicator_selector)
                 .build()
 
