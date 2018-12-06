@@ -101,7 +101,12 @@ dependencies {
 	    compile 'com.github.smhdk:KM-Popup-Image-Slider:v1.1.0'
 	}
 ```
-  
+
+# Credit
+[PhotoView](https://github.com/chrisbanes/PhotoView)
+
+[Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader)
+
 # Licence
 
 	MIT License
