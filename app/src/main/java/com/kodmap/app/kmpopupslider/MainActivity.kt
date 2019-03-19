@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val dialog1 = PopopDialogBuilder(this@MainActivity)
-                .setList(baseItemList, 15)
+                .setList(baseItemList)
                 .setHeaderBackgroundColor(android.R.color.holo_blue_dark)
                 .setDialogBackgroundColor(R.color.color_dialog_bg)
                 .setCloseDrawable(R.drawable.ic_close_white_24dp)
@@ -49,7 +49,23 @@ class MainActivity : AppCompatActivity() {
 
         val dialog2 = PopopDialogBuilder(this@MainActivity)
                 .setList(urlList, 4)
+                .setHeaderBackgroundColor(android.R.color.holo_blue_bright)
+                .setDialogBackgroundColor(R.color.color_dialog_bg)
+                .setCloseDrawable(R.drawable.ic_close_white_24dp)
+                .setLoadingView(R.layout.loading_view)
+                .setDialogStyle(R.style.DialogStyle)
+                .showThumbSlider(true)
+                .setSliderImageScaleType(ScaleType.FIT_XY)
                 .build()
+
+
+        /*
+        Easy use
+
+        PopopDialogBuilder(this@MainActivity)
+                .setList(urlList,4)
+                .build()
+        */
 
         val button1 = findViewById<Button>(R.id.dialog1)
         button1.setOnClickListener { dialog1.show() }
