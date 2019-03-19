@@ -3,4 +3,6 @@
     <color name="color_dialog_bg">#cc080808</color>
     <color name="color_selected">#080808</color>
     <color name="color_unselected">#aaa</color>
+    <color name="color_unselected_thumb">#cc414040</color>
+    <color name="color_white">#fff</color>
 </resources>

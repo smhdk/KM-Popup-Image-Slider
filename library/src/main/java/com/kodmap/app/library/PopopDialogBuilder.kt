@@ -44,6 +44,7 @@ class PopopDialogBuilder(mContext: Context) {
     private var mDialogStyle: Int = R.style.KmPopupDialog
     private var mSelectorIndicator: Int = R.drawable.indicator_selector
     private var mIsZoomable: Boolean = false
+    private var mSelectedPosition: Int = 0
 
     private lateinit var mAdapterClickListener: AdapterClickListener
     private lateinit var mDialog: Dialog
@@ -97,23 +98,27 @@ class PopopDialogBuilder(mContext: Context) {
         return this
     }
 
-    fun setList(imageList: List<Any>?): PopopDialogBuilder {
+    fun setList(imageList: List<Any>?, selectPosition: Int? = null): PopopDialogBuilder {
         this.mImageList.clear()
-        if (imageList == null) {
-            throw  IllegalArgumentException("List must not be null")
-        } else if (imageList.isEmpty()) {
-            throw IllegalArgumentException("List must not be empty")
-        } else if (imageList[0] is Int) {
-            fillImageList(imageList, ListType.Drawable)
-            return this
-        } else if (imageList[0] is String) {
-            fillImageList(imageList, ListType.Url)
-            return this
-        } else if (imageList[0] is BaseItem) {
-            fillImageList(imageList, ListType.BaseItem)
-            return this
-        } else {
-            throw IllegalArgumentException("List contains unsupported type. List contains drawable id (Integer)" +
+        if (selectPosition != null && imageList != null && selectPosition < imageList.size) {
+            mSelectedPosition = selectPosition
+        }
+        when {
+            imageList == null -> throw  IllegalArgumentException("List must not be null")
+            imageList.isEmpty() -> throw IllegalArgumentException("List must not be empty")
+            imageList[0] is Int -> {
+                fillImageList(imageList, ListType.Drawable)
+                return this
+            }
+            imageList[0] is String -> {
+                fillImageList(imageList, ListType.Url)
+                return this
+            }
+            imageList[0] is BaseItem -> {
+                fillImageList(imageList, ListType.BaseItem)
+                return this
+            }
+            else -> throw IllegalArgumentException("List contains unsupported type. List contains drawable id (Integer)" +
                     ", image link (String) or BaseItem")
         }
     }
@@ -174,6 +179,7 @@ class PopopDialogBuilder(mContext: Context) {
         mSliderAdapter.setIsZoomable(mIsZoomable)
         mImagePager.adapter = mSliderAdapter
         (mImagePager.adapter as PopupSliderAdapter).setItemList(mImageList)
+        mImagePager.currentItem = mSelectedPosition
         mImagePager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
@@ -190,9 +196,10 @@ class PopopDialogBuilder(mContext: Context) {
     private fun initThumbReclerView() {
         weakContext.get()?.let {
             mThumbAdapter = PopupThumbAdapter(mAdapterClickListener)
+            mThumbAdapter.oldSelectedPosition = mSelectedPosition
             mRvThumb = mDialogView.findViewById(R.id.km_rv_thumb)
             mRvThumb.visibility = View.VISIBLE
-            mImageList[0].isSelected = true
+            mImageList[mSelectedPosition].isSelected = true
             mThumbAdapter.setList(mImageList)
             mThumbAdapter.setLoadingView(mLoadingView)
             val layoutManager = LinearLayoutManager(it)
@@ -246,7 +253,7 @@ class PopopDialogBuilder(mContext: Context) {
             val lp = WindowManager.LayoutParams()
             val manager = it.getSystemService(Activity.WINDOW_SERVICE) as WindowManager
             val displaymetrics = DisplayMetrics()
-            manager.defaultDisplay.getMetrics(displaymetrics);
+            manager.defaultDisplay.getMetrics(displaymetrics)
             lp.width = displaymetrics.widthPixels
             lp.height = displaymetrics.heightPixels
 
