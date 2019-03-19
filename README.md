@@ -52,6 +52,7 @@ You can create PopupDialogBuilder after creating any list. You can customize the
       Dialog dialog = new PopPopopDialogBuilder(activity_context)
                         // Set list like as option1 or option2 or option3
                         .setList(list)
+			// or setList with initial position that like .setList(list,position)
                         // Set dialog header color
                         .setHeaderBackgroundColor(android.R.color.holo_blue_light)
                         // Set dialog background color
@@ -98,7 +99,7 @@ Add it in your root build.gradle at the end of repositories:
 Add it in app build.gradle
 ```
 dependencies {
-	    compile 'com.github.smhdk:KM-Popup-Image-Slider:v1.2.0'
+	    compile 'com.github.smhdk:KM-Popup-Image-Slider:v1.3.0'
 	}
 ```
 
@@ -111,7 +112,7 @@ dependencies {
 
 	MIT License
 
-	Copyright (c) 2018 Semih Dik
+	Copyright (c) 2019 Semih Dik
 
 	Permission is hereby granted, free of charge, to any person obtaining a copy
 	of this software and associated documentation files (the "Software"), to deal
