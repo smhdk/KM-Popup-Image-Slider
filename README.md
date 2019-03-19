@@ -99,7 +99,7 @@ Add it in your root build.gradle at the end of repositories:
 Add it in app build.gradle
 ```
 dependencies {
-	    compile 'com.github.smhdk:KM-Popup-Image-Slider:v1.3.0'
+	    compile 'com.github.smhdk:KM-Popup-Image-Slider:v1.2.1'
 	}
 ```
 
