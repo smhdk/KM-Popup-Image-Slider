@@ -2,7 +2,7 @@ KM Popup Image Slider for Android
 =============
 [![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)](https://jitpack.io/#smhdk/KM-Popup-Image-Slider "![Release](https://jitpack.io/v/smhdk/KM-Popup-Image-Slider.svg)")
 
-You can easyly show image list in dialog with this library.Image list contains url or drawable.  
+You can easily show image list in dialog with this library.Image list contains url or drawable.  
 
 ![Alt Text](https://media.giphy.com/media/4QEGw3pIuzNDD5HP08/giphy.gif)
 
@@ -49,7 +49,7 @@ Option 3 - BaseItem list:
 You can create PopupDialogBuilder after creating any list. You can customize the view with parameters
 
 ```java
-      Dialog dialog = new PopPopopDialogBuilder(activity_context)
+      Dialog dialog = new PopopDialogBuilder(activity_context)
                         // Set list like as option1 or option2 or option3
                         .setList(list)
 			// or setList with initial position that like .setList(list,position)
