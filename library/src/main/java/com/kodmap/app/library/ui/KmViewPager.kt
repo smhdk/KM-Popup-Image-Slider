@@ -34,7 +34,7 @@ class KmViewPager : ViewPager {
 
     override fun canScrollHorizontally(direction: Int): Boolean {
         try {
-            return !swipeLocked && super.canScrollHorizontally(event)
+            return !swipeLocked && super.canScrollHorizontally(direction)
         }catch (e: java.lang.Exception) {
             return !swipeLocked
         }
