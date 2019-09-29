@@ -17,15 +17,27 @@ class KmViewPager : ViewPager {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return !swipeLocked && super.onTouchEvent(event)
+        try {
+            return !swipeLocked && super.onTouchEvent(event)
+        }catch (e: java.lang.Exception) {
+            return !swipeLocked
+        }
     }
 
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
-        return !swipeLocked && super.onInterceptTouchEvent(event)
+        try {
+            return !swipeLocked && super.onInterceptTouchEvent(event)
+        }catch (e: java.lang.Exception) {
+            return !swipeLocked
+        }
     }
 
     override fun canScrollHorizontally(direction: Int): Boolean {
-        return !swipeLocked && super.canScrollHorizontally(direction)
+        try {
+            return !swipeLocked && super.canScrollHorizontally(direction)
+        }catch (e: java.lang.Exception) {
+            return !swipeLocked
+        }
     }
 
 
